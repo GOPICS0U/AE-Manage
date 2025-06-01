@@ -501,6 +501,110 @@ body.dark-mode .rp-toast.danger {
     background: #c0392b;
     color: #fff;
 }
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 210px;
+  background: #232526;
+  color: #fff;
+  z-index: 1201;
+  box-shadow: 2px 0 12px #0002;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#sidebar.open {
+  transform: translateX(0);
+}
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 60px 0 0 0;
+  width: 100%;
+}
+#sidebar ul li {
+  width: 100%;
+}
+#sidebar ul li a {
+  display: block;
+  padding: 18px 28px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.13rem;
+  font-weight: 600;
+  border-left: 4px solid transparent;
+  transition: background 0.2s, border 0.2s;
+}
+#sidebar ul li a:hover, #sidebar ul li a:focus {
+  background: #27ae60;
+  color: #fff;
+  border-left: 4px solid #b2ffb2;
+}
+#sidebar-toggle {
+  position: absolute;
+  top: 16px;
+  right: -48px;
+  width: 44px;
+  height: 44px;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  font-size: 1.7rem;
+  cursor: pointer;
+  z-index: 1202;
+  box-shadow: 2px 2px 8px #27ae6022;
+  transition: background 0.2s;
+}
+#sidebar-toggle:hover, #sidebar-toggle:focus {
+  background: #219150;
+}
+@media (max-width: 700px) {
+  #sidebar {
+    width: 80vw;
+    min-width: 160px;
+    max-width: 320px;
+  }
+  #sidebar ul li a {
+    font-size: 1rem;
+    padding: 14px 18px;
+  }
+  #sidebar-toggle {
+    right: -40px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.3rem;
+  }
+}
+body.sidebar-open #app, body.sidebar-open header, body.sidebar-open main {
+  filter: blur(2px) brightness(0.95);
+  pointer-events: none;
+  user-select: none;
+}
+body.dark-mode #sidebar {
+  background: #181a1b;
+  color: #b2ffb2;
+}
+body.dark-mode #sidebar ul li a {
+  color: #b2ffb2;
+}
+body.dark-mode #sidebar ul li a:hover, body.dark-mode #sidebar ul li a:focus {
+  background: #27ae60;
+  color: #fff;
+  border-left: 4px solid #b2ffb2;
+}
+body.dark-mode #sidebar-toggle {
+  background: #232526;
+  color: #b2ffb2;
+}
+body.dark-mode #sidebar-toggle:hover, body.dark-mode #sidebar-toggle:focus {
+  background: #27ae60;
+  color: #fff;
+}
 @media (max-width: 600px) {
     #app {
         padding: 4px;

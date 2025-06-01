@@ -407,4 +407,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // --- Recherche de véhicules ---
+    document.getElementById('search-vehicules').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        const vehicules = loadVehicules();
+        const filtered = vehicules.filter(v => v.plaque.toLowerCase().includes(query) || v.modele.toLowerCase().includes(query) || v.client.toLowerCase().includes(query));
+        // Mettre à jour l'affichage avec les résultats filtrés
+        vehiculesList.innerHTML = filtered.length === 0 ? '<em>Aucun véhicule trouvé.</em>' :
+            filtered.map((v, idx) => `
+                <div class="vehicule-card">
+                    <strong>${v.plaque}</strong> - ${v.modele}<br>
+                    Client : ${v.client}<br>
+                    Travaux : ${v.travaux}<br>
+                    Prix : <b>${v.prix} €</b>
+                    <button data-idx="${idx}" class="delete-vehicule">Supprimer</button>
+                </div>
+            `).join('');
+    });
+
+    // --- Sidebar navigation ---
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    sidebarToggle.addEventListener('click', function() {
+      sidebar.classList.toggle('open');
+      document.body.classList.toggle('sidebar-open');
+      if (sidebar.classList.contains('open')) {
+        sidebarToggle.setAttribute('aria-label', 'Fermer le menu');
+        sidebarToggle.innerText = '✕';
+        sidebar.querySelector('a').focus();
+      } else {
+        sidebarToggle.setAttribute('aria-label', 'Ouvrir le menu');
+        sidebarToggle.innerText = '☰';
+        sidebarToggle.focus();
+      }
+    });
+    // Fermer le menu au clic sur un lien ou touche ESC
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        document.body.classList.remove('sidebar-open');
+        sidebarToggle.setAttribute('aria-label', 'Ouvrir le menu');
+        sidebarToggle.innerText = '☰';
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        document.body.classList.remove('sidebar-open');
+        sidebarToggle.setAttribute('aria-label', 'Ouvrir le menu');
+        sidebarToggle.innerText = '☰';
+        sidebarToggle.focus();
+      }
+    });
 });
