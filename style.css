@@ -452,3 +452,84 @@ body.dark-mode .rp-ambiance .rp-bar button:hover {
     background: #27ae60;
     color: #fff;
 }
+.rp-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 80px;
+    transform: translateX(-50%);
+    min-width: 220px;
+    max-width: 90vw;
+    background: #232526;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.08rem;
+    padding: 14px 32px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px #27ae6022;
+    opacity: 0;
+    z-index: 2000;
+    transition: opacity 0.4s, background 0.2s;
+    pointer-events: none;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.rp-toast.success {
+    background: linear-gradient(90deg, #27ae60 60%, #219150 100%);
+    color: #fff;
+}
+.rp-toast.info {
+    background: #5865F2;
+    color: #fff;
+}
+.rp-toast.danger {
+    background: #c0392b;
+    color: #fff;
+}
+body.dark-mode .rp-toast {
+    background: #181a1b;
+    color: #b2ffb2;
+}
+body.dark-mode .rp-toast.success {
+    background: linear-gradient(90deg, #27ae60 60%, #219150 100%);
+    color: #fff;
+}
+body.dark-mode .rp-toast.info {
+    background: #5865F2;
+    color: #fff;
+}
+body.dark-mode .rp-toast.danger {
+    background: #c0392b;
+    color: #fff;
+}
+@media (max-width: 600px) {
+    #app {
+        padding: 4px;
+        max-width: 100vw;
+    }
+    section {
+        padding: 8px 2px 8px 2px;
+        margin-bottom: 24px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .vehicule-card, .stock-card, .staff-card {
+        padding: 10px 6px 8px 8px;
+        font-size: 0.98rem;
+    }
+    .discord-link, #facture-section button, #export-section button, .rp-ambiance .rp-bar button {
+        font-size: 0.98rem;
+        padding: 7px 10px;
+    }
+    .rp-ambiance .rp-bar {
+        font-size: 0.95rem;
+        padding: 7px 10px 7px 10px;
+    }
+    input, select, textarea, button {
+        font-size: 1rem;
+        padding: 7px;
+    }
+    #facture-section textarea {
+        font-size: 1rem;
+    }
+}

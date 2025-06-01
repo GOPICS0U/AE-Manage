@@ -57,6 +57,23 @@ document.addEventListener('DOMContentLoaded', function() {
         animateVehiculeCards();
     }
 
+    // --- Ajout : Notifications visuelles RP (toast) ---
+    function showToast(msg, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = 'rp-toast ' + type;
+        toast.innerText = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '1'; }, 50);
+        setTimeout(() => { toast.style.opacity = '0'; }, 2200);
+        setTimeout(() => { document.body.removeChild(toast); }, 2600);
+    }
+    // Exemples d'intégration :
+    // showToast('Véhicule ajouté !', 'success');
+    // showToast('Stock mis à jour', 'info');
+    // showToast('Suppression effectuée', 'danger');
+
+    // Intégration sur actions principales :
+    const origVehiculeFormSubmit = vehiculeForm.onsubmit || function(){};
     vehiculeForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const vehicules = loadVehicules();
@@ -71,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveVehicules(vehicules);
         vehiculeForm.reset();
         renderVehicules();
+        showToast('Véhicule ajouté !', 'success');
     });
 
     vehiculesList.addEventListener('click', function(e) {
@@ -80,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             vehicules.splice(idx, 1);
             saveVehicules(vehicules);
             renderVehicules();
+            showToast('Véhicule supprimé', 'danger');
         }
     });
 
@@ -163,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveStock(stock);
         pieceForm.reset();
         renderStock();
+        showToast('Stock mis à jour', 'info');
     });
     stockList.addEventListener('click', function(e) {
         const stock = loadStock();
@@ -171,16 +191,19 @@ document.addEventListener('DOMContentLoaded', function() {
             stock[idx].quantite++;
             saveStock(stock);
             renderStock();
+            showToast('Stock modifié', 'info');
         } else if (e.target.classList.contains('remove-piece')) {
             const idx = parseInt(e.target.getAttribute('data-idx'), 10);
             if (stock[idx].quantite > 0) stock[idx].quantite--;
             saveStock(stock);
             renderStock();
+            showToast('Stock modifié', 'info');
         } else if (e.target.classList.contains('delete-piece')) {
             const idx = parseInt(e.target.getAttribute('data-idx'), 10);
             stock.splice(idx, 1);
             saveStock(stock);
             renderStock();
+            showToast('Pièce supprimée', 'danger');
         }
     });
 
@@ -261,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveStaff(staff);
         staffForm.reset();
         renderStaff();
+        showToast('Employé ajouté', 'success');
     });
     staffList.addEventListener('change', function(e) {
         let staff = loadStaff();
@@ -281,6 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
             staff.splice(idx, 1);
             saveStaff(staff);
             renderStaff();
+            showToast('Employé supprimé', 'danger');
         }
     });
     renderStaff();
@@ -358,4 +383,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // Pause musique si on quitte la page
     window.addEventListener('beforeunload', () => { rpAudio.pause(); });
+
+    // --- Amélioration accessibilité : navigation clavier & focus visible ---
+    // Ajout d'un focus visible personnalisé pour tous les éléments interactifs
+    const style = document.createElement('style');
+    style.innerHTML = `
+        :focus {
+            outline: 2.5px solid #27ae60 !important;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px #b2ffb255 !important;
+        }
+        button:focus, input:focus, select:focus, textarea:focus, a:focus {
+            background: #eafaf1 !important;
+            color: #232526 !important;
+        }
+        body.dark-mode :focus {
+            outline: 2.5px solid #b2ffb2 !important;
+            box-shadow: 0 0 0 2px #27ae6022 !important;
+        }
+        body.dark-mode button:focus, body.dark-mode input:focus, body.dark-mode select:focus, body.dark-mode textarea:focus, body.dark-mode a:focus {
+            background: #232526 !important;
+            color: #b2ffb2 !important;
+        }
+    `;
+    document.head.appendChild(style);
 });
