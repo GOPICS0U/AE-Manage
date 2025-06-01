@@ -260,6 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveStaff(staff) {
         localStorage.setItem(STAFF_KEY, JSON.stringify(staff));
     }
+    // --- Ajout : badge de statut en ligne/offline pour chaque employé (staff) ---
     function renderStaff() {
         const staff = loadStaff();
         if (staff.length === 0) {
@@ -268,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         staffList.innerHTML = staff.map((s, idx) => `
             <div class="staff-card" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <span class="staff-badge ${s.present ? 'on' : 'off'}" title="${s.present ? 'En service' : 'Off-duty'}"></span>
                 <input type="checkbox" class="staff-presence" data-idx="${idx}" ${s.present ? 'checked' : ''} title="Présence">
                 <span style="flex:2;"><b>${s.nom}</b></span>
                 <input type="text" class="staff-note" data-idx="${idx}" value="${s.note || ''}" placeholder="Note rapide..." style="flex:3;min-width:120px;">
@@ -365,6 +367,42 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => exportSuccess.style.display = 'none', 1500);
     });
 
+    // --- Ajout : sauvegarde/restauration manuelle des données (import/export JSON) ---
+    const importBtn = document.createElement('button');
+    importBtn.innerText = 'Importer .json';
+    importBtn.id = 'import-json';
+    importBtn.style.marginLeft = '12px';
+    const exportSection = document.getElementById('export-section');
+    if(exportSection) exportSection.appendChild(importBtn);
+    importBtn.addEventListener('click', function() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const data = JSON.parse(evt.target.result);
+                    if(data.vehicules && data.stock && data.staff) {
+                        localStorage.setItem('exoticGarageVehicules', JSON.stringify(data.vehicules));
+                        localStorage.setItem('exoticGarageStock', JSON.stringify(data.stock));
+                        localStorage.setItem('exoticGarageStaff', JSON.stringify(data.staff));
+                        showToast('Import réussi !', 'success');
+                        location.reload();
+                    } else {
+                        showToast('Fichier non valide', 'danger');
+                    }
+                } catch {
+                    showToast('Erreur à l\'import', 'danger');
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    });
+
     // --- Ambiance RP : musique de garage ---
     const rpAudio = document.getElementById('rp-audio');
     const rpAudioToggle = document.getElementById('rp-audio-toggle');
@@ -459,5 +497,30 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebarToggle.innerText = '☰';
         sidebarToggle.focus();
       }
+    });
+
+    // --- Ajout : scroll fluide et retour haut de page ---
+    // Scroll fluide pour tous les liens internes
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    // Bouton retour haut de page
+    const topBtn = document.createElement('button');
+    topBtn.id = 'back-to-top';
+    topBtn.title = 'Remonter en haut';
+    topBtn.innerHTML = '↑';
+    topBtn.style.display = 'none';
+    document.body.appendChild(topBtn);
+    window.addEventListener('scroll', function() {
+      topBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
