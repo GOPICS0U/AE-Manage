@@ -1,0 +1,454 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: linear-gradient(120deg, #232526 0%, #414345 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+#app {
+    max-width: 950px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.97);
+    padding: 40px 40px 30px 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(44,62,80,0.18), 0 1.5px 8px rgba(39,174,96,0.08);
+    position: relative;
+    overflow: hidden;
+}
+h1 {
+    text-align: center;
+    color: #27ae60;
+    font-size: 2.7rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 8px #0002;
+}
+.overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(39, 174, 96, 0.12);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 2px;
+    backdrop-filter: blur(2px);
+    display: none;
+}
+section {
+    margin-bottom: 48px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px #0001;
+    padding: 28px 24px 18px 24px;
+    position: relative;
+}
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+input, select, textarea, button {
+    margin-top: 6px;
+    margin-bottom: 14px;
+    padding: 10px;
+    border-radius: 7px;
+    border: 1.5px solid #b2bec3;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.05rem;
+    background: #f4f4f4;
+    transition: border 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+    border: 1.5px solid #27ae60;
+    outline: none;
+}
+button {
+    background: linear-gradient(90deg, #27ae60 60%, #219150 100%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px #27ae6022;
+    transition: background 0.2s, transform 0.1s;
+}
+button:hover {
+    background: linear-gradient(90deg, #219150 60%, #27ae60 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+.vehicule-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px #27ae6011;
+    padding: 16px 18px 10px 18px;
+    margin-bottom: 14px;
+    border-left: 5px solid #27ae60;
+    position: relative;
+    transition: box-shadow 0.2s;
+}
+.vehicule-card:hover {
+    box-shadow: 0 4px 16px #27ae6022;
+}
+.vehicule-card button {
+    width: auto;
+    margin-top: 8px;
+    background: #c0392b;
+    font-size: 0.98rem;
+    padding: 7px 18px;
+    border-radius: 5px;
+    box-shadow: none;
+}
+.vehicule-card button:hover {
+    background: #e74c3c;
+}
+.alert {
+    color: #c0392b;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    background: #e1e1e1;
+}
+::-webkit-scrollbar-thumb {
+    background: #27ae60;
+    border-radius: 8px;
+}
+.discord-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px auto;
+    width: fit-content;
+    background: #5865F2;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 22px;
+    text-decoration: none;
+    font-size: 1.15rem;
+    box-shadow: 0 2px 8px #5865f233;
+    transition: background 0.2s, transform 0.1s;
+}
+.discord-link:hover {
+    background: #404eed;
+    transform: scale(1.04);
+}
+.discord-link svg {
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    fill: #fff;
+}
+.stock-card {
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 1px 4px #27ae6011;
+    padding: 10px 16px 8px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid #219150;
+    font-size: 1.08rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: box-shadow 0.2s;
+}
+.stock-card:hover {
+    box-shadow: 0 4px 16px #27ae6022;
+}
+.stock-card button {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px #27ae6011;
+    margin: 0 2px;
+    transition: background 0.2s, transform 0.1s;
+    cursor: pointer;
+    padding: 0;
+}
+.stock-card button:hover {
+    background: #219150;
+    transform: scale(1.08);
+}
+#facture-section form {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px #27ae6011;
+    padding: 16px 18px 10px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+#facture-section textarea {
+    background: #f4f4f4;
+    border: 1.5px solid #b2bec3;
+    border-radius: 7px;
+    font-size: 1.1rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+    resize: none;
+}
+#facture-section button#facture-copy {
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.05rem;
+    padding: 8px 22px;
+    box-shadow: 0 1px 4px #27ae6011;
+    margin-top: 8px;
+    float: right;
+    transition: background 0.2s, transform 0.1s;
+}
+#facture-section button#facture-copy:hover {
+    background: #219150;
+    transform: scale(1.04);
+}
+.staff-card {
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 1px 4px #27ae6011;
+    padding: 10px 16px 8px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid #5865F2;
+    font-size: 1.08rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: box-shadow 0.2s;
+}
+.staff-card:hover {
+    box-shadow: 0 4px 16px #5865f233;
+}
+.staff-card input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #27ae60;
+    margin-right: 8px;
+}
+.staff-card input[type="text"] {
+    background: #f4f4f4;
+    border: 1.5px solid #b2bec3;
+    border-radius: 7px;
+    font-size: 1.05rem;
+    padding: 6px 10px;
+    width: 100%;
+}
+.staff-card button {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px #27ae6011;
+    margin: 0 2px;
+    transition: background 0.2s, transform 0.1s;
+    cursor: pointer;
+    padding: 0;
+}
+.staff-card button:hover {
+    background: #e74c3c;
+    transform: scale(1.08);
+}
+#export-section button {
+    background: #5865F2;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.05rem;
+    padding: 8px 22px;
+    box-shadow: 0 1px 4px #5865f233;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    transition: background 0.2s, transform 0.1s;
+}
+#export-section button:hover {
+    background: #404eed;
+    transform: scale(1.04);
+}
+#export-success {
+    color: #27ae60;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-left: 18px;
+    transition: opacity 0.3s;
+}
+body.dark-mode {
+    background: linear-gradient(120deg, #181a1b 0%, #232526 100%);
+}
+body.dark-mode #app {
+    background: rgba(34, 40, 49, 0.98);
+    box-shadow: 0 8px 32px #000a, 0 1.5px 8px #27ae6011;
+}
+body.dark-mode section {
+    background: #23272b;
+    color: #f4f4f4;
+    box-shadow: 0 1px 6px #0003;
+}
+body.dark-mode label {
+    color: #b2ffb2;
+}
+body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
+    background: #23272b;
+    color: #fff;
+    border: 1.5px solid #27ae60;
+}
+body.dark-mode input:focus, body.dark-mode textarea:focus, body.dark-mode select:focus {
+    border: 1.5px solid #b2ffb2;
+}
+body.dark-mode .vehicule-card {
+    background: #23272b;
+    color: #fff;
+    border-left: 5px solid #27ae60;
+    box-shadow: 0 1px 8px #27ae6011;
+}
+body.dark-mode .vehicule-card button {
+    background: #c0392b;
+    color: #fff;
+}
+body.dark-mode .vehicule-card button:hover {
+    background: #e74c3c;
+}
+body.dark-mode .discord-link {
+    background: #232526;
+    color: #b2ffb2;
+    box-shadow: 0 2px 8px #27ae6022;
+}
+body.dark-mode .discord-link:hover {
+    background: #27ae60;
+    color: #fff;
+}
+body.dark-mode .alert {
+    color: #ff7675;
+}
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #27ae60;
+}
+body.dark-mode .stock-card {
+    background: #23272b;
+    color: #fff;
+    border-left: 4px solid #27ae60;
+}
+body.dark-mode .stock-card button {
+    background: #27ae60;
+    color: #fff;
+}
+body.dark-mode .stock-card button:hover {
+    background: #219150;
+}
+body.dark-mode #facture-section form {
+    background: #23272b;
+    color: #fff;
+}
+body.dark-mode #facture-section textarea {
+    background: #23272b;
+    color: #fff;
+    border: 1.5px solid #27ae60;
+}
+body.dark-mode #facture-section button#facture-copy {
+    background: #27ae60;
+    color: #fff;
+}
+body.dark-mode #facture-section button#facture-copy:hover {
+    background: #219150;
+}
+body.dark-mode .staff-card {
+    background: #23272b;
+    color: #fff;
+    border-left: 4px solid #5865F2;
+}
+body.dark-mode .staff-card input[type="text"] {
+    background: #23272b;
+    color: #fff;
+    border: 1.5px solid #27ae60;
+}
+body.dark-mode .staff-card button {
+    background: #c0392b;
+    color: #fff;
+}
+body.dark-mode .staff-card button:hover {
+    background: #e74c3c;
+}
+body.dark-mode #export-section button {
+    background: #232526;
+    color: #b2ffb2;
+}
+body.dark-mode #export-section button:hover {
+    background: #27ae60;
+    color: #fff;
+}
+body.dark-mode #export-success {
+    color: #b2ffb2;
+}
+.rp-ambiance {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 0;
+    z-index: 999;
+    pointer-events: none;
+}
+.rp-ambiance audio {
+    width: 0; height: 0;
+    display: none;
+}
+.rp-ambiance .rp-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    background: rgba(34,40,49,0.92);
+    color: #b2ffb2;
+    border-radius: 16px;
+    padding: 10px 32px 10px 18px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    box-shadow: 0 2px 12px #27ae6022;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    opacity: 0.97;
+    transition: background 0.2s;
+}
+.rp-ambiance .rp-bar button {
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.05rem;
+    padding: 6px 18px;
+    box-shadow: 0 1px 4px #27ae6011;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.rp-ambiance .rp-bar button:hover {
+    background: #219150;
+    transform: scale(1.04);
+}
+body.dark-mode .rp-ambiance .rp-bar {
+    background: rgba(34,40,49,0.98);
+    color: #27ae60;
+}
+body.dark-mode .rp-ambiance .rp-bar button {
+    background: #232526;
+    color: #b2ffb2;
+}
+body.dark-mode .rp-ambiance .rp-bar button:hover {
+    background: #27ae60;
+    color: #fff;
+}
